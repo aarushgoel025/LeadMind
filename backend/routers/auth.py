@@ -11,6 +11,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID", "")
 GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 GITHUB_SCOPE = "repo,read:user,user:email"
 
 
@@ -24,7 +25,7 @@ def github_login():
         f"https://github.com/login/oauth/authorize"
         f"?client_id={GITHUB_CLIENT_ID}"
         f"&scope={GITHUB_SCOPE}"
-        f"&redirect_uri=http://localhost:8000/auth/callback"
+        f"&redirect_uri={BACKEND_URL}/auth/callback"
     )
     return RedirectResponse(url=github_auth_url)
 

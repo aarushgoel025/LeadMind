@@ -22,7 +22,10 @@ export default function Landing() {
           AI-powered security and code quality audit tool for tech leads.
         </p>
         <button
-          onClick={() => window.location.href = 'http://localhost:8000/auth/github'}
+          onClick={() => {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            window.location.href = `${API_URL}/auth/github`;
+          }}
           className="bg-text-primary text-background font-bold py-3 px-8 rounded-lg flex items-center gap-3 mx-auto hover:bg-opacity-90 transition-all text-lg"
         >
           <GithubIcon className="w-6 h-6" />
