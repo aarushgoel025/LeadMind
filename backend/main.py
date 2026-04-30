@@ -20,13 +20,14 @@ app = FastAPI(
 )
 
 # ── Session middleware (server-side, httpOnly cookie) ──────────────────────────
+IS_PROD = os.getenv("ENV") == "production"
 app.add_middleware(
     SessionMiddleware,
-    secret_key=os.getenv("SESSION_SECRET", "change_me_in_production"),
+    secret_key=os.getenv("SESSION_SECRET", "change_me_in_production_extremely_secure_key"),
     session_cookie="leadmind_session",
     max_age=60 * 60 * 24,   # 24 hours
     same_site="lax",
-    https_only=False,        # set True in production (behind HTTPS)
+    https_only=IS_PROD,      # set True in production (behind HTTPS)
 )
 
 # ── CORS (allow frontend dev server) ──────────────────────────────────────────
